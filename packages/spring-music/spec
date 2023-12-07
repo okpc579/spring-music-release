@@ -1,0 +1,7 @@
+---
+name: spring-music
+
+dependencies: []
+
+files: 
+- spring-music/spring-music.jar

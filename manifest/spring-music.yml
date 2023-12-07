@@ -1,0 +1,40 @@
+name: spring-music
+
+addons:
+- name: bpm
+  jobs:
+  - name: bpm
+    release: bpm
+
+releases:
+- name: "spring-music"
+  version: 0.1
+- name: bpm
+  version: latest
+ 
+stemcells:
+- alias: default
+  os: ubuntu-jammy
+  version: "1.260"
+
+update:
+  canaries: 1
+  canary_watch_time: 10000-600000
+  update_watch_time: 10000-600000
+  max_in_flight: 1
+  serial: true
+
+#features:
+#  use_dns_addresses: false
+
+instance_groups:
+- name: spring-music
+  instances: 1
+  azs: [z1]
+  networks:
+  - name: default
+  vm_type: small
+  stemcell: default
+  jobs:
+  - name: spring-music
+    release: spring-music

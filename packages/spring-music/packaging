@@ -1,0 +1,4 @@
+set -e
+
+mv spring-music/spring-music.jar ${BOSH_INSTALL_TARGET}
+

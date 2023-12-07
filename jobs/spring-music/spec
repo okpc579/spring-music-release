@@ -1,0 +1,14 @@
+---
+name: spring-music
+
+templates: 
+  bin/ctl.erb: bin/ctl
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+  data/properties.sh.erb: data/properties.sh
+
+packages:
+- openjdk
+- spring-music
+
+properties: {}

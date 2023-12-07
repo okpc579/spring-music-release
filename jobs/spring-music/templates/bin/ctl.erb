@@ -1,0 +1,39 @@
+#!/bin/bash -e
+
+set -e
+
+JOB_DIR=/var/vcap/jobs/spring-music
+PACKAGE_DIR=/var/vcap/packages/spring-music
+JAVA_DIR=/var/vcap/packages/openjdk
+JOB_NAME=spring-music
+PIDFILE=/var/vcap/sys/run/spring-music/spring-music.pid
+
+
+case $1 in
+  start)
+
+
+  /var/vcap/packages/openjdk/bin/java -cp "/var/vcap/packages/spring-music/spring-music.jar" org.springframework.boot.loader.JarLauncher \
+  >>/var/vcap/sys/log/$JOB_NAME/$JOB_NAME.stdout.log \
+  2>>/var/vcap/sys/log/$JOB_NAME/$JOB_NAME.stderr.log &
+
+    SPRING_MUSIC_PID=`ps -ef | grep 'java' | head -n 1 | grep -v grep | awk '{print $2}' `
+    echo ${SPRING_MUSIC_PID} > $PIDFILE
+
+    #echo $! > $PIDFILE
+    ;;
+
+  stop)
+
+    kill -p $(cat $PIDFILE)
+    echo "" > $PIDFILE
+
+    ;;
+
+  *)
+    echo "Usage: ctl {start|stop}"
+    ;;
+
+esac
+exit 0
+
